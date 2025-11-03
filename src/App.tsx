@@ -8362,8 +8362,8 @@ if (dynamicRoute) {
       if (error) throw error;
 
       const transformedData = {
-        images: data.images.map((url: string) => ({
-          uri: url,
+images: (data?.images || []).map((url: string) => ({
+  uri: url,
           width: 800,
           height: 600,
         })),
