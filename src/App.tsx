@@ -8124,8 +8124,8 @@ const uniqueCities = Array.from(new Set(cityCheck?.map((item) => item.city) || [
   useEffect(() => {
     console.log("🔄 dynamicRoute changed:", dynamicRoute);
 
-    if (activeView === "dynamic" && dynamicRoute) {
-      console.log("🎯 Loading dynamic route:", dynamicRoute);
+if (dynamicRoute) {
+  console.log("🎯 Loading dynamic route:", dynamicRoute);
 
       const city = dynamicRoute.city || "";
       const categoryName = dynamicRoute.category || "";
