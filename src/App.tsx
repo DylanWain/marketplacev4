@@ -3548,8 +3548,7 @@ const SEOHead: React.FC<{
     if (!service && !city && !item) {
       const reviewSchema = generateReviewSchema();
       const reviewScriptId = "schema-review";
-      let reviewScript = document.getElementById(reviewScriptId);
-
+let reviewScript = document.getElementById(reviewScriptId) as HTMLScriptElement;
       if (!reviewScript) {
         reviewScript = document.createElement("script");
         reviewScript.id = reviewScriptId;
@@ -3563,8 +3562,8 @@ const SEOHead: React.FC<{
     // Inject Schema.org JSON-LD
     schemas.forEach((schema, index) => {
       const scriptId = `schema-${index}`;
-      let scriptTag = document.getElementById(scriptId);
-
+let scriptTag = document.getElementById(scriptId) as HTMLScriptElement;
+      
       if (!scriptTag) {
         scriptTag = document.createElement("script");
         scriptTag.id = scriptId;
