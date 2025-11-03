@@ -7671,8 +7671,8 @@ const App: React.FC = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [recentLocations, setRecentLocations] = useState<string[]>(() => {
-    const saved = localStorage.getItem("recentLocations");
+const [recentLocations, setRecentLocations] = useState<Array<{ name: string; lat: string; lng: string }>>(() => {
+  const saved = localStorage.getItem("recentLocations");
     return saved ? JSON.parse(saved) : [];
   });
 
