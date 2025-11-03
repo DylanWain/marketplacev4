@@ -1392,8 +1392,7 @@ const DynamicMarketplacePage: React.FC<DynamicPageProps> = ({
 };
 
 // Helper function to generate dynamic FAQs
-function generateDynamicFAQs(params: DynamicPageProps) {
-  const { city, state, category, zipCode } = params;
+function generateDynamicFAQs(params: URLParams) {  const { city, state, category, zipCode } = params;
   const catCap = category
     ? category.charAt(0).toUpperCase() + category.slice(1)
     : "items";
