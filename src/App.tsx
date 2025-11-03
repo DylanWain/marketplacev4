@@ -4275,8 +4275,8 @@ const SignupModal: React.FC<{
                 : field === "phone"
                 ? "tel"
                 : "text";
-              const placeholder: { [key: string]: string } = {
-                name: "John Doe",
+const placeholder: string | undefined = {
+  name: "John Doe",
                 email: "john@example.com",
                 phone: "(555) 123-4567",
                 password: "••••••••",
