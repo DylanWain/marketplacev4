@@ -396,6 +396,7 @@ const Custom404Page: React.FC<Custom404PageProps> = ({
 // Optimized for 7M+ URLs with MAX ranking power
 // ============================================
 
+
 interface DynamicPageProps {
   city?: string;
   state?: string;
@@ -407,6 +408,14 @@ interface DynamicPageProps {
   setShowDetail: (show: boolean) => void; // NEW LINE
 }
 
+interface URLParams {
+  city?: string;
+  state?: string;
+  category?: string;
+  neighborhood?: string;
+  zipCode?: string;
+  searchQuery?: string;
+}
 const DynamicMarketplacePage: React.FC<DynamicPageProps> = ({
   city,
   state,
@@ -1444,7 +1453,7 @@ function generateDynamicFAQs(params: DynamicPageProps) {
 }
 
 // Helper function to build canonical URL
-function buildCanonicalURL(params: DynamicPageProps): string {
+function buildCanonicalURL(params: URLParams): string {
   let url = "/marketplace";
 
   if (params.city && params.state) {
