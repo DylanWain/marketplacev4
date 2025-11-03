@@ -1,0 +1,23 @@
+# Allow all crawlers to access all content
+User-agent: *
+Allow: /
+
+# Disallow admin or sensitive areas (add if needed)
+# Disallow: /admin/
+# Disallow: /api/
+
+# Point to sitemap
+Sitemap: https://dibby.com/sitemap.xml
+
+# Crawl-delay (optional - helps prevent overwhelming server)
+Crawl-delay: 1
+
+# Allow specific search engines (optional)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
