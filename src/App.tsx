@@ -7805,7 +7805,7 @@ const App: React.FC = () => {
           .select("city")
           .limit(100);
 
-        const uniqueCities = [...new Set(cityCheck?.map((item) => item.city))];
+const uniqueCities = [...new Set(cityCheck?.map((item) => item.city) || [])];
         console.log("🏙️ Cities available in database:", uniqueCities);
       }
 
@@ -7819,7 +7819,7 @@ const App: React.FC = () => {
           .select("city")
           .limit(100);
 
-        const uniqueCities = [...new Set(cityCheck?.map((item) => item.city))];
+const uniqueCities = [...new Set(cityCheck?.map((item) => item.city) || [])];
         console.log("🏙️ Cities available in database:", uniqueCities);
       }
 
