@@ -3069,8 +3069,8 @@ const generateSchemaOrg = (page: string, data: any = {}) => {
     ],
   };
 
-  const schemas = [baseSchema];
-
+const schemas: any[] = [baseSchema];
+  
   // Service Schema
   if (page === "service" && data.service) {
     schemas.push({
