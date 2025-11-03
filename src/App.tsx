@@ -8067,7 +8067,7 @@ const uniqueCities = Array.from(new Set(cityCheck?.map((item) => item.city) || [
       // Fetch listings for this city
       await fetchMarketplaceListings({
         city: cityForFiltering,
-        city: cityName,
+
         category: selectedCategory?.name,
         searchText: searchQuery.trim() || undefined,
         minPrice: priceRange.min,
