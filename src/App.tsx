@@ -49,6 +49,7 @@ import {
   ExternalLink, // ← ADD THIS (used at line 4663)
   Calendar, // ← ADD THIS (used at line 5105)
   Clock, // ← ADD THIS (used at line 5172)
+  Eye, 
 } from "lucide-react";
 
 // ============================================
