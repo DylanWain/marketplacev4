@@ -7912,7 +7912,7 @@ const uniqueCities = Array.from(new Set(cityCheck?.map((item) => item.city) || [
         },
         primary_listing_photo: item.images?.[0]
           ? { photo_image_url: item.images[0] }
-          : null,
+          : undefined,
         listing_photos: item.images
           ? item.images.map((url: string) => ({ photo_image_url: url }))
           : [],
