@@ -8470,7 +8470,7 @@ images: (data?.images || []).map((url: string) => ({
         if (params) {
           console.log("✅ MARKETPLACE PAGE:", params);
           setDynamicRoute(params);
-          setActiveView("dynamic");
+setActiveView("browse");
           setIs404(false);
         } else {
           console.log("❌ Invalid marketplace URL");
