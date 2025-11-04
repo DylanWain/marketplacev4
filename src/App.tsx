@@ -10012,7 +10012,7 @@ setActiveView("browse");
                     }}
                   >
                     <img
-                      src={img.uri || img}
+src={img}
                       alt={`Thumbnail ${idx + 1}`}
                       style={{
                         width: "100%",
