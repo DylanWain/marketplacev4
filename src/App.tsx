@@ -8604,17 +8604,22 @@ if (dynamicRoute) {
         if (matchingCategory) {
           console.log("📂 Setting category from route:", matchingCategory.name);
           setSelectedCategory(matchingCategory);
-          fetchListings("", true, dynamicRoute.city, matchingCategory.name);
+          await fetchMarketplaceListings({
+  city: dynamicRoute.city,
+  category: matchingCategory.name,
+});
         } else {
           console.log("⚠️ Category not found, showing all listings for city");
           setSelectedCategory(null);
-          fetchListings("", false, dynamicRoute.city);
-        }
+await fetchMarketplaceListings({
+  city: dynamicRoute.city,
+});        }
       } else if (dynamicRoute.city) {
         console.log("🌆 Showing all listings for city:", dynamicRoute.city);
         setSelectedCategory(null);
-        fetchListings("", false, dynamicRoute.city);
-      }
+await fetchMarketplaceListings({
+  city: dynamicRoute.city,
+});      }
 
       setTimeout(() => setActiveView("browse"), 100);
     }
