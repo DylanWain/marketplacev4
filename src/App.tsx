@@ -9842,10 +9842,7 @@ setActiveView("browse");
 
                   {/* SHARP IMAGE */}
                   <img
-                    src={
-                      images[currentImageIndex]?.uri ||
-                      images[currentImageIndex]
-                    }
+               src={images[currentImageIndex]}
                     alt={`${
                       selectedListing.marketplace_listing_title
                     } - Image ${currentImageIndex + 1}`}
