@@ -7717,6 +7717,13 @@ const [activeConversation, setActiveConversation] = useState<string | null>(
   null
 );
 const [messageText, setMessageText] = useState<string>("");
+
+const sendMessage = () => {
+  if (!messageText.trim()) return;
+  showToast("Messaging feature coming soon!", "success");
+  setMessageText("");
+};
+
 // ADD THIS - Computed active filters:
 const activeFilters = [
   selectedCategory?.name && selectedCategory.name !== "All"
