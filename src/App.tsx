@@ -7723,8 +7723,16 @@ const sendMessage = () => {
   showToast("Messaging feature coming soon!", "success");
   setMessageText("");
 };
-
-// ADD THIS - Computed active filters:
+  
+const toggleFavorite = (id: string) => {
+  setFavorites((prev) => {
+    const newFavorites = prev.includes(id)
+      ? prev.filter((favId) => favId !== id)
+      : [...prev, id];
+    localStorage.setItem("favorites", JSON.stringify(newFavorites));
+    return newFavorites;
+  });
+};// ADD THIS - Computed active filters:
 const activeFilters = [
   selectedCategory?.name && selectedCategory.name !== "All"
     ? selectedCategory.name
