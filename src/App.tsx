@@ -10693,8 +10693,10 @@ showToast("Messaging feature coming soon!", "success")                }
                 border: "1px solid #e4e6eb",
                 transition: "border-color 0.2s",
               }}
-              onClick={() => openListingDetail(activeConv.listing)}
-              onMouseEnter={(e) =>
+onClick={() => {
+  setSelectedListing(activeConv.listing);
+  setShowDetail(true);
+}}              onMouseEnter={(e) =>
                 (e.currentTarget.style.borderColor = "#FFB84D")
               }
               onMouseLeave={(e) =>
