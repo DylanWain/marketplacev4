@@ -10067,8 +10067,7 @@ src={img}
             <div style={{ padding: "16px", borderBottom: "1px solid #e4e6eb" }}>
               <button
                 onClick={() =>
-                  showToast("Messaging feature coming soon!", "info")
-                }
+showToast("Messaging feature coming soon!", "success")                }
                 style={{
                   width: "100%",
                   padding: "12px",
