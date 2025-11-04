@@ -10796,7 +10796,7 @@ onClick={() => {
                   paddingBottom: "16px",
                 }}
               >
-{activeConv.messages.map((msg: any, idx) => {
+{activeConv.messages.map((msg: any, idx: number) => {
   const isMe = msg.senderId === "me";
                   const showAvatar =
                     !isMe &&
