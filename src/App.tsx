@@ -7692,9 +7692,7 @@ const [condition, setCondition] = useState<string>("all");
 const [titleFilter, setTitleFilter] = useState<string>("");           // ← NEW
 const [vehicleYearMin, setVehicleYearMin] = useState<string>("all"); // ← NEW
 const [vehicleYearMax, setVehicleYearMax] = useState<string>("all"); // ← NEW
-const [bedrooms, setBedrooms] = useState<string>("all");             // ← NEW
-const [bathrooms, setBathrooms] = useState<string>("all");           // ← NEW
-const [propertyType, setPropertyType] = useState<string>("all");     // ← NEW
+
 const [daysSinceListed, setDaysSinceListed] = useState<string>("all");
 
   // ADD THIS:
