@@ -8552,7 +8552,7 @@ setActiveView("browse");
     setVehicleModel("all");
   }, [vehicleMake]);
 
-  // Debounced filter refresh
+// Debounced filter refresh
   useEffect(() => {
     // Only refetch if we have data already
     if ((selectedCategory || searchQuery.trim()) && rawResults.length > 0) {
@@ -8586,8 +8586,8 @@ setActiveView("browse");
 
   // Load listings when dynamic route changes
   useEffect(() => {
-if (dynamicRoute) {
-  console.log("🎯 Dynamic route detected:", dynamicRoute);
+    if (dynamicRoute) {
+      console.log("🎯 Dynamic route detected:", dynamicRoute);
 
       if (dynamicRoute.city && dynamicRoute.state) {
         setSearchLocation({
@@ -8604,22 +8604,24 @@ if (dynamicRoute) {
         if (matchingCategory) {
           console.log("📂 Setting category from route:", matchingCategory.name);
           setSelectedCategory(matchingCategory);
-          await fetchMarketplaceListings({
-  city: dynamicRoute.city,
-  category: matchingCategory.name,
-});
+          fetchMarketplaceListings({
+            city: dynamicRoute.city,
+            category: matchingCategory.name,
+          });
         } else {
           console.log("⚠️ Category not found, showing all listings for city");
           setSelectedCategory(null);
-await fetchMarketplaceListings({
-  city: dynamicRoute.city,
-});        }
+          fetchMarketplaceListings({
+            city: dynamicRoute.city,
+          });
+        }
       } else if (dynamicRoute.city) {
         console.log("🌆 Showing all listings for city:", dynamicRoute.city);
         setSelectedCategory(null);
-await fetchMarketplaceListings({
-  city: dynamicRoute.city,
-});      }
+        fetchMarketplaceListings({
+          city: dynamicRoute.city,
+        });
+      }
 
       setTimeout(() => setActiveView("browse"), 100);
     }
@@ -8681,10 +8683,10 @@ await fetchMarketplaceListings({
     listing: ListingItem | null;
     preSelectedService?: string;
     sendEmailNotifications: (orderData: any) => Promise<void>;
-    setConfirmedOrder: (data: any) => void; // ← ADD THIS
-    setCurrentPage: (page: string) => void; // ← ADD THIS
-    setShowDetail: (show: boolean) => void; // ← ADD THIS
-    setActiveView: (view: string) => void; // ← ADD THIS
+    setConfirmedOrder: (data: any) => void;
+    setCurrentPage: (page: string) => void;
+    setShowDetail: (show: boolean) => void;
+    setActiveView: (view: string) => void;
   }> = ({
     isOpen,
     onClose,
@@ -8694,8 +8696,6 @@ await fetchMarketplaceListings({
     setConfirmedOrder,
     setCurrentPage,
   }) => {
-    // ← ADD TO DESTRUCTURE
-    // ← ADD THIS
 
     const { isMobile } = useResponsive();
     const [formData, setFormData] = useState({
