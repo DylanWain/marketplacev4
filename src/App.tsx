@@ -9828,10 +9828,8 @@ setActiveView("browse");
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      backgroundImage: `url(${
-                        images[currentImageIndex]?.uri ||
-                        images[currentImageIndex]
-                      })`,
+                   backgroundImage: `url(${images[currentImageIndex]})`,
+                      
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       filter: "blur(20px)",
