@@ -7701,41 +7701,35 @@ const [daysSinceListed, setDaysSinceListed] = useState<string>("all");
   // ADD THIS:
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 
-  // ADD THESE:
-  const [currentPage, setCurrentPage] = useState<string>("home");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-  const [isDibbyModalOpen, setIsDibbyModalOpen] = useState<boolean>(false);
-  const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
-
-  // ADD THIS:
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  // ADD THIS:
-  const [toasts, setToasts] = useState<
-    Array<{ id: string; message: string; type: string }>
-  >([]);
-
-  // ADD THIS:
-  const [conversations, setConversations] = useState<any[]>([]);
-  const [activeConversation, setActiveConversation] = useState<string | null>(
-    null
-  );
-
-  // ADD THIS - Computed active filters:
-  const activeFilters = [
-    selectedCategory?.name && selectedCategory.name !== "All"
-      ? selectedCategory.name
-      : null,
-    priceRange.min ? `Min: $${priceRange.min}` : null,
-    priceRange.max ? `Max: $${priceRange.max}` : null,
-    condition !== "all" ? condition : null,
-    daysSinceListed !== "all" ? `Listed: ${daysSinceListed}` : null,
-  ].filter(Boolean);
-
-  // ADD THIS:
-  const clearAllFilters = () => {
-    setSelectedCategory(null);
+ // ADD THESE:
+const [currentPage, setCurrentPage] = useState<string>("home");
+const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+const [isDibbyModalOpen, setIsDibbyModalOpen] = useState<boolean>(false);
+const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
+// ADD THIS:
+const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+// ADD THIS:
+// ADD THIS:
+const [toasts, setToasts] = useState<Array<{ id: string; message: string; type: string }>>([]);
+const [conversations, setConversations] = useState<any[]>([]);
+const [activeConversation, setActiveConversation] = useState<string | null>(
+  null
+);
+const [messageText, setMessageText] = useState<string>("");
+// ADD THIS - Computed active filters:
+const activeFilters = [
+  selectedCategory?.name && selectedCategory.name !== "All"
+    ? selectedCategory.name
+    : null,
+  priceRange.min ? `Min: $${priceRange.min}` : null,
+  priceRange.max ? `Max: $${priceRange.max}` : null,
+  condition !== "all" ? condition : null,
+  daysSinceListed !== "all" ? `Listed: ${daysSinceListed}` : null,
+].filter(Boolean);
+// ADD THIS:
+const clearAllFilters = () => {
+  setSelectedCategory(null);
     setPriceRange({ min: "", max: "" });
     setCondition("all");
     setDaysSinceListed("all");
