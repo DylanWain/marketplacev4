@@ -16186,8 +16186,7 @@ showToast("Messaging feature coming soon!", "success")                }
                           window.scrollTo({ top: 0, behavior: "smooth" });
                         } else {
                           // City doesn't have a dedicated page yet
-                          showToast(`${city} page coming soon!`, "info");
-                        }
+showToast(`${city} page coming soon!`, "success");                        }
                       }}
                       style={{
                         padding: "16px 20px",
