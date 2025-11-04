@@ -8586,8 +8586,8 @@ setActiveView("browse");
 
   // Load listings when dynamic route changes
   useEffect(() => {
-    if (activeView === "dynamic" && dynamicRoute) {
-      console.log("🎯 Dynamic route detected:", dynamicRoute);
+if (dynamicRoute) {
+  console.log("🎯 Dynamic route detected:", dynamicRoute);
 
       if (dynamicRoute.city && dynamicRoute.state) {
         setSearchLocation({
