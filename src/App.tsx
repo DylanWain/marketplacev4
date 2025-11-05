@@ -21869,8 +21869,8 @@ if ("scroll" in item && (item as any).scroll) {
                   <div
                     style={{ display: "flex", gap: "12px", overflowX: "auto" }}
                   >
-                    {images.map((img, idx) => (
-                      <button
+{images.map((img: string, idx: number) => (
+  <button
                         key={idx}
                         onClick={() => setCurrentImageIndex(idx)}
                         style={{
