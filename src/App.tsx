@@ -21320,8 +21320,8 @@ if ("scroll" in item && (item as any).scroll) {
                   gap: "6px",
                 }}
               >
-                {images.map((_, idx) => (
-                  <button
+{images.map((_: any, idx: number) => (
+  <button
                     key={idx}
                     onClick={() => setCurrentImageIndex(idx)}
                     style={{
