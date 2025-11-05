@@ -8698,7 +8698,7 @@ setActiveView("browse");
     setConfirmedOrder: (data: any) => void;
     setCurrentPage: (page: string) => void;
     setShowDetail: (show: boolean) => void;
-    setActiveView: (view: string) => void;
+   setActiveView: (view: "landing" | "browse" | "inbox" | "saved") => void;
   }> = ({
     isOpen,
     onClose,
