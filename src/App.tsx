@@ -17071,8 +17071,8 @@ showToast(`${city} page coming soon!`, "success");                        }
               Tags
             </h3>
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-              {selectedBlogPost.tags.map((tag, index) => (
-                <span
+{selectedBlogPost.tags.map((tag: string, index: number) => (
+  <span
                   key={index}
                   style={{
                     padding: "8px 16px",
