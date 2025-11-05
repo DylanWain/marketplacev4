@@ -22466,9 +22466,9 @@ if ("scroll" in item && (item as any).scroll) {
           .eq("is_live", true);
 
         if (data) {
-          const uniqueCities = [
-            ...new Set(data.map((item: any) => item.city)),
-          ].sort();
+      const uniqueCities = Array.from(
+  new Set(data.map((item: any) => item.city))
+).sort();
           setCities(uniqueCities);
         }
       };
