@@ -22956,9 +22956,7 @@ if ("scroll" in item && (item as any).scroll) {
           }}
         />
       )}
-      {showIngest ? (
-        <IngestListings />
-      ) : (
+    {false ? null : (
         <>
           <ReadingProgressBar />
           <TrustBar />
