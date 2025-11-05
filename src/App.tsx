@@ -7707,7 +7707,8 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 const [isDibbyModalOpen, setIsDibbyModalOpen] = useState<boolean>(false);
 const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
-// ADD THIS:
+  const [selectedBlogPost, setSelectedBlogPost] = useState<any>(null);
+  // ADD THIS:
 const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 // ADD THIS:
 // ADD THIS:
