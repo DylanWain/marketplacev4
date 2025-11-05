@@ -7704,26 +7704,23 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 const [isDibbyModalOpen, setIsDibbyModalOpen] = useState<boolean>(false);
 const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
-  const [selectedBlogPost, setSelectedBlogPost] = useState<any>(null);
-  const [userProfile, setUserProfile] = useState<any>({
+const [selectedBlogPost, setSelectedBlogPost] = useState<any>(null);
+const [userProfile, setUserProfile] = useState<any>({
   name: "",
   email: "",
   phone: "",
   bio: "",
-});  // ADD THIS:
+});
 const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-// ADD THIS:
-// ADD THIS:
-const [toasts, setToasts] = useState
-  Array<{ id: string; message: string; type: "success" | "error" | "warning" }>
->([]);
+const [toasts, setToasts] = useState<Array<{ id: string; message: string; type: "success" | "error" | "warning" }>>([]);
+
 const [conversations, setConversations] = useState<any[]>([]);
 const [activeConversation, setActiveConversation] = useState<string | null>(
   null
 );
 const [messageText, setMessageText] = useState<string>("");
 
-const sendMessage = () => {
+const sendMessage= () => {
   if (!messageText.trim()) return;
   showToast("Messaging feature coming soon!", "success");
   setMessageText("");
