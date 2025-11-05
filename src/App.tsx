@@ -23038,8 +23038,8 @@ if ("scroll" in item && (item as any).scroll) {
               )}
               {/* 🌟 DYNAMIC MARKETPLACE TEMPLATE (7M PAGES) */}
 
-              {activeView === "dynamic" && dynamicRoute && (
-                <>
+{dynamicRoute && (
+  <>
                   <DynamicMarketplacePage
                     city={dynamicRoute.city}
                     state={dynamicRoute.state}
