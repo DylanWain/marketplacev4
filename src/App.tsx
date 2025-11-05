@@ -7714,7 +7714,9 @@ const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
 const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 // ADD THIS:
 // ADD THIS:
-const [toasts, setToasts] = useState<Array<{ id: string; message: string; type: string }>>([]);
+const [toasts, setToasts] = useState
+  Array<{ id: string; message: string; type: "success" | "error" | "warning" }>
+>([]);
 const [conversations, setConversations] = useState<any[]>([]);
 const [activeConversation, setActiveConversation] = useState<string | null>(
   null
