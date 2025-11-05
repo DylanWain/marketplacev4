@@ -21034,10 +21034,10 @@ if ("scroll" in item && (item as any).scroll) {
                   } else {
                     setCurrentPage(item.page!);
                     setActiveView("landing");
-                    if (item.scroll) {
-                      setTimeout(() => {
-                        document
-                          .getElementById(item.scroll!)
+                 if ("scroll" in item && (item as any).scroll) {
+  setTimeout(() => {
+    document
+      .getElementById((item as any).scroll!)
                           ?.scrollIntoView({ behavior: "smooth" });
                       }, 100);
                     }
