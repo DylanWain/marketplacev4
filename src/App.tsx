@@ -9994,7 +9994,7 @@ setActiveView("browse");
                   justifyContent: isMobile ? "flex-start" : "center",
                 }}
               >
-                {images.map((img, idx) => (
+               {images.map((img: string, idx: number) => (
                   <div
                     key={idx}
                     onClick={() => handleImageChange(idx)}
