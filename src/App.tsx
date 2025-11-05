@@ -15650,13 +15650,13 @@ onClick={() => {
                     >
                       <span
                         onClick={() => {
-                          if (link.action === "marketplace") {
-                            setActiveView("browse");
-                          } else if (link.action === "saved") {
-                            setActiveView("saved");
-                          } else if (link.action === "inbox") {
-                            setActiveView("inbox");
-                          } else {
+                     if (link.action === "marketplace") {
+  setActiveView("browse");
+} else if (link.action === "saved") {
+  setActiveView("saved");
+} else if (link.action === "inbox") {
+  setActiveView("inbox");
+} else {
                             setCurrentPage(link.page);
                             setActiveView("landing");
                           }
