@@ -20883,8 +20883,8 @@ showToast(`${city} page coming soon!`, "success");                        }
                   } else {
                     setCurrentPage(item.page!);
                     setActiveView("landing");
-                    if (item.scroll) {
-                      setTimeout(() => {
+if ("scroll" in item && item.scroll) {
+  setTimeout(() => {
                         document
                           .getElementById(item.scroll!)
                           ?.scrollIntoView({ behavior: "smooth" });
