@@ -15649,23 +15649,22 @@ onClick={() => {
     }}
   >
     <span
-      onClick={() => {
-        if ("action" in link) {
-          if (link.action === "marketplace") {
-            setActiveView("browse");
-          } else if (link.action === "saved") {
-            setActiveView("saved");
-          } else if (link.action === "inbox") {
-            setActiveView("inbox");
-          }
-        } else {
-          setCurrentPage(link.page);
-          setActiveView("landing");
-        }
-      }}
-                          }
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
+onClick={() => {
+  if ("action" in link) {
+    if (link.action === "marketplace") {
+      setActiveView("browse");
+    } else if (link.action === "saved") {
+      setActiveView("saved");
+    } else if (link.action === "inbox") {
+      setActiveView("inbox");
+    }
+  } else {
+    setCurrentPage(link.page);
+    setActiveView("landing");
+  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}}
+                        
                         style={{
                           fontSize: "16px",
                           color: "#5A5A5A",
