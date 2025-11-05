@@ -7705,7 +7705,12 @@ const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 const [isDibbyModalOpen, setIsDibbyModalOpen] = useState<boolean>(false);
 const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
   const [selectedBlogPost, setSelectedBlogPost] = useState<any>(null);
-  // ADD THIS:
+  const [userProfile, setUserProfile] = useState<any>({
+  name: "",
+  email: "",
+  phone: "",
+  bio: "",
+});  // ADD THIS:
 const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 // ADD THIS:
 // ADD THIS:
