@@ -16950,7 +16950,7 @@ showToast(`${city} page coming soon!`, "success");                        }
             }}
           >
             {/* Render markdown-like content */}
-            {selectedBlogPost.content.split("\n").map((line, index) => {
+           {selectedBlogPost.content.split("\n").map((line: string, index: number) => {
               // H1
               if (line.startsWith("# ")) {
                 return (
