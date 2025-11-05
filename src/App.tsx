@@ -51,11 +51,9 @@ import {
   Clock, // ← ADD THIS (used at line 5172)
   Eye, 
 } from "lucide-react";
-
 // ============================================
 // 🚀 URL ROUTING SYSTEM - HANDLES 7M+ PAGES
 // ============================================
-
 interface RouteParams {
   city?: string;
   state?: string;
@@ -66,10 +64,16 @@ interface RouteParams {
   itemId?: string;
 }
 
+interface Custom404PageProps {
+  setCurrentPage: (page: string) => void;
+  setActiveView: (view: "landing" | "browse" | "inbox" | "saved") => void;
+  setIs404: (is404: boolean) => void;
+}
+
 function parseURL(path: string): RouteParams | null {
   path = path.replace(/^\/|\/$/g, "");
   const segments = path.split("/");
-
+  
   // /marketplace/{city-state}
   if (segments.length === 2 && segments[0] === "marketplace") {
     const cityState = segments[1];
@@ -81,7 +85,7 @@ function parseURL(path: string): RouteParams | null {
       };
     }
   }
-
+  
   // /marketplace/{city-state}/{category}
   if (segments.length === 3 && segments[0] === "marketplace") {
     const cityState = segments[1];
@@ -94,7 +98,7 @@ function parseURL(path: string): RouteParams | null {
       };
     }
   }
-
+  
   // /marketplace/zip/{zipcode}
   if (
     segments.length === 3 &&
@@ -103,7 +107,7 @@ function parseURL(path: string): RouteParams | null {
   ) {
     return { zipCode: segments[2] };
   }
-
+  
   // /marketplace/zip/{zipcode}/{category}
   if (
     segments.length === 4 &&
@@ -115,20 +119,13 @@ function parseURL(path: string): RouteParams | null {
       category: segments[3].replace(/-/g, " "),
     };
   }
-
+  
   return null;
 }
 
 // ============================================
 // 🎯 CUSTOM 404 PAGE - CORRECTED JSX
 // ============================================
-
-interface Custom404PageProps {
-  setCurrentPage: (page: string) => void;
-  setActiveView: (view: string) => void;
-  setIs404: (value: boolean) => void;
-}
-
 const Custom404Page: React.FC<Custom404PageProps> = ({
   setCurrentPage,
   setActiveView,
