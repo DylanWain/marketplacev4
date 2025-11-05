@@ -15641,24 +15641,28 @@ onClick={() => {
                     margin: 0,
                   }}
                 >
-                  {section.links.map((link, linkIdx) => (
-                    <li
-                      key={linkIdx}
-                      style={{
-                        marginBottom: "12px",
-                      }}
-                    >
-                      <span
-                        onClick={() => {
-                     if (link.action === "marketplace") {
-  setActiveView("browse");
-} else if (link.action === "saved") {
-  setActiveView("saved");
-} else if (link.action === "inbox") {
-  setActiveView("inbox");
-} else {
-                            setCurrentPage(link.page);
-                            setActiveView("landing");
+{section.links.map((link, linkIdx) => (
+  <li
+    key={linkIdx}
+    style={{
+      marginBottom: "12px",
+    }}
+  >
+    <span
+      onClick={() => {
+        if ("action" in link) {
+          if (link.action === "marketplace") {
+            setActiveView("browse");
+          } else if (link.action === "saved") {
+            setActiveView("saved");
+          } else if (link.action === "inbox") {
+            setActiveView("inbox");
+          }
+        } else {
+          setCurrentPage(link.page);
+          setActiveView("landing");
+        }
+      }}
                           }
                           window.scrollTo({ top: 0, behavior: "smooth" });
                         }}
