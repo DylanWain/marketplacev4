@@ -35,6 +35,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
         // ============================================
         // LOGIN
         // ============================================
+        // @ts-ignore - Supabase types
         const { data, error } = await supabase
           .from('users')
           .select('*')
@@ -57,6 +58,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
         const cleanEmail = email.toLowerCase().trim();
 
         // Check if email exists
+        // @ts-ignore - Supabase types
         const { data: existingUser } = await supabase
           .from('users')
           .select('id')
@@ -72,6 +74,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
         // Get referrer if code provided
         let referrerId = null;
         if (referralCode.trim()) {
+          // @ts-ignore - Supabase types
           const { data: referrer } = await supabase
             .from('users')
             .select('id, referral_code')
@@ -87,6 +90,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
         }
 
         // Create new user with $1 signup bonus
+        // @ts-ignore - Supabase types
         const { data: newUser, error: signupError } = await supabase
           .from('users')
           .insert([
@@ -111,6 +115,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
         if (referrerId) {
           try {
             // Create referral record
+            // @ts-ignore - Supabase types
             await supabase.from('referrals').insert([
               {
                 referrer_id: referrerId,
@@ -120,6 +125,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
             ]);
 
             // Add $1 to referrer's balance using RPC
+            // @ts-ignore - Supabase types
             await supabase.rpc('increment_balance', {
               user_id: referrerId,
               amount: 1.0,
