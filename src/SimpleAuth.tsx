@@ -31,7 +31,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
     try {
       if (isLogin) {
-        const result: any = await supabase
+        const result = await (supabase as any)
           .from('users')
           .select('*')
           .eq('email', email.toLowerCase().trim())
@@ -49,7 +49,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
       } else {
         const cleanEmail = email.toLowerCase().trim();
 
-        const existingResult: any = await supabase
+        const existingResult = await (supabase as any)
           .from('users')
           .select('id')
           .eq('email', cleanEmail)
@@ -63,7 +63,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
         let referrerId: any = null;
         if (referralCode.trim()) {
-          const referrerResult: any = await supabase
+          const referrerResult = await (supabase as any)
             .from('users')
             .select('id, referral_code')
             .eq('referral_code', referralCode.toUpperCase().trim())
@@ -76,7 +76,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
           }
         }
 
-        const signupResult: any = await supabase
+        const signupResult = await (supabase as any)
           .from('users')
           .insert([
             {
@@ -100,7 +100,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
         if (referrerId) {
           try {
-            await (supabase.from('referrals') as any).insert([
+            await (supabase as any).from('referrals').insert([
               {
                 referrer_id: referrerId,
                 referred_id: newUser.id,
