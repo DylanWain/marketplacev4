@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import { supabase } from "./lib/supabase";
 import { SimpleAuth } from './SimpleAuth';
 import { UserDashboard } from './UserDashboard';
-import { DollarSign } from 'lucide-react'; // Add DollarSign to your lucide importsimport {
+import {
   Search,
   MapPin,
   Heart,
@@ -46,14 +46,15 @@ import { DollarSign } from 'lucide-react'; // Add DollarSign to your lucide impo
   PawPrint,
   Building,
   Activity,
-  Share2, // ADD THIS
-  Lock, // ← ADD THIS (used at lines 4058, 4261, 4262)
-  ExternalLink, // ← ADD THIS (used at line 4663)
-  Calendar, // ← ADD THIS (used at line 5105)
-  Clock, // ← ADD THIS (used at line 5172)
-  Eye, 
+  Share2,
+  Lock,
+  ExternalLink,
+  Calendar,
+  Clock,
+  Eye,
   DollarSign,
-    } from "lucide-react";
+} from "lucide-react";
+
 // ============================================
 // 🚀 URL ROUTING SYSTEM - HANDLES 7M+ PAGES
 // ============================================
