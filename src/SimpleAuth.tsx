@@ -31,8 +31,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
     try {
       if (isLogin) {
-        // @ts-expect-error - Users table exists in Supabase
-        const { data, error } = await supabase
+        const { data, error }: any = await supabase
           .from('users')
           .select('*')
           .eq('email', email.toLowerCase().trim())
@@ -50,8 +49,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
       } else {
         const cleanEmail = email.toLowerCase().trim();
 
-        // @ts-expect-error - Users table exists in Supabase
-        const { data: existingUser } = await supabase
+        const { data: existingUser }: any = await supabase
           .from('users')
           .select('id')
           .eq('email', cleanEmail)
@@ -65,8 +63,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
         let referrerId: any = null;
         if (referralCode.trim()) {
-          // @ts-expect-error - Users table exists in Supabase
-          const { data: referrer } = await supabase
+          const { data: referrer }: any = await supabase
             .from('users')
             .select('id, referral_code')
             .eq('referral_code', referralCode.toUpperCase().trim())
@@ -79,8 +76,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
           }
         }
 
-        // @ts-expect-error - Users table exists in Supabase
-        const { data: newUser, error: signupError } = await supabase
+        const { data: newUser, error: signupError }: any = await supabase
           .from('users')
           .insert([
             {
@@ -102,8 +98,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
         if (referrerId) {
           try {
-            // @ts-expect-error - Referrals table exists in Supabase
-            await supabase.from('referrals').insert([
+            await (supabase.from('referrals') as any).insert([
               {
                 referrer_id: referrerId,
                 referred_id: newUser.id,
@@ -111,8 +106,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
               },
             ]);
 
-            // @ts-expect-error - RPC function exists in Supabase
-            await supabase.rpc('increment_balance', {
+            await (supabase as any).rpc('increment_balance', {
               user_id: referrerId,
               amount: 1.0,
             });
