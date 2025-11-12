@@ -31,31 +31,31 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
     try {
       if (isLogin) {
-        const { data, error }: any = await supabase
+        const result: any = await supabase
           .from('users')
           .select('*')
           .eq('email', email.toLowerCase().trim())
           .eq('password', password)
           .single();
 
-        if (error || !data) {
+        if (result.error || !result.data) {
           setError('Invalid email or password');
           setLoading(false);
           return;
         }
 
         setSuccess('✅ Login successful! Welcome back!');
-        setTimeout(() => onSuccess(data), 1000);
+        setTimeout(() => onSuccess(result.data), 1000);
       } else {
         const cleanEmail = email.toLowerCase().trim();
 
-        const { data: existingUser }: any = await supabase
+        const existingResult: any = await supabase
           .from('users')
           .select('id')
           .eq('email', cleanEmail)
           .single();
 
-        if (existingUser) {
+        if (existingResult.data) {
           setError('Email already registered. Please login instead.');
           setLoading(false);
           return;
@@ -63,20 +63,20 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
         let referrerId: any = null;
         if (referralCode.trim()) {
-          const { data: referrer }: any = await supabase
+          const referrerResult: any = await supabase
             .from('users')
             .select('id, referral_code')
             .eq('referral_code', referralCode.toUpperCase().trim())
             .single();
 
-          if (referrer) {
-            referrerId = referrer.id;
+          if (referrerResult.data) {
+            referrerId = referrerResult.data.id;
           } else {
             setError('Invalid referral code. Sign up anyway without it?');
           }
         }
 
-        const { data: newUser, error: signupError }: any = await supabase
+        const signupResult: any = await supabase
           .from('users')
           .insert([
             {
@@ -89,12 +89,14 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
           .select()
           .single();
 
-        if (signupError) {
-          console.error('Signup error:', signupError);
+        if (signupResult.error) {
+          console.error('Signup error:', signupResult.error);
           setError('Signup failed. Please try again.');
           setLoading(false);
           return;
         }
+
+        const newUser = signupResult.data;
 
         if (referrerId) {
           try {
