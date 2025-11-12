@@ -52,7 +52,8 @@ import { DollarSign } from 'lucide-react'; // Add DollarSign to your lucide impo
   Calendar, // ← ADD THIS (used at line 5105)
   Clock, // ← ADD THIS (used at line 5172)
   Eye, 
-} from "lucide-react";
+  DollarSign,
+    } from "lucide-react";
 // ============================================
 // 🚀 URL ROUTING SYSTEM - HANDLES 7M+ PAGES
 // ============================================
