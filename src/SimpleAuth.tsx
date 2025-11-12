@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './lib/supabase';
-import { X, Mail, Lock, DollarSign, Gift } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface SimpleAuthProps {
   onClose: () => void;
@@ -8,13 +8,12 @@ interface SimpleAuthProps {
 }
 
 export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [referralCode, setReferralCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
 
   useEffect(() => {
     const savedRefCode = localStorage.getItem('referralCode');
@@ -26,7 +25,6 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setSuccess('');
     setLoading(true);
 
     try {
@@ -44,8 +42,8 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
           return;
         }
 
-        setSuccess('✅ Login successful! Welcome back!');
-        setTimeout(() => onSuccess(result.data), 1000);
+        alert('Login successful!');
+        setTimeout(() => onSuccess(result.data), 500);
       } else {
         const cleanEmail = email.toLowerCase().trim();
 
@@ -56,7 +54,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
           .single();
 
         if (existingResult.data) {
-          setError('Email already registered. Please login instead.');
+          setError('Email already registered');
           setLoading(false);
           return;
         }
@@ -71,8 +69,6 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
           if (referrerResult.data) {
             referrerId = referrerResult.data.id;
-          } else {
-            setError('Invalid referral code. Sign up anyway without it?');
           }
         }
 
@@ -90,8 +86,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
           .single();
 
         if (signupResult.error) {
-          console.error('Signup error:', signupResult.error);
-          setError('Signup failed. Please try again.');
+          setError('Signup failed');
           setLoading(false);
           return;
         }
@@ -113,22 +108,18 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
               amount: 1.0,
             });
 
-            setSuccess(`🎉 Account created! You got $1.00 signup bonus + $1.00 referral bonus = $2.00!`);
             newUser.balance = 2.00;
           } catch (refError) {
-            console.error('Referral processing error:', refError);
-            setSuccess('🎉 Account created! You got $1.00 signup bonus!');
+            console.error('Referral error:', refError);
           }
-        } else {
-          setSuccess('🎉 Account created! You got $1.00 signup bonus!');
         }
 
         localStorage.removeItem('referralCode');
-        setTimeout(() => onSuccess(newUser), 2500);
+        alert(`Account created! You have $${newUser.balance.toFixed(2)}`);
+        setTimeout(() => onSuccess(newUser), 500);
       }
     } catch (err) {
-      console.error('Auth error:', err);
-      setError('Something went wrong. Please try again.');
+      setError('Something went wrong');
     }
 
     setLoading(false);
@@ -154,14 +145,11 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
         onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: 'white',
-          borderRadius: '16px',
+          borderRadius: '8px',
           padding: '32px',
-          maxWidth: '450px',
+          maxWidth: '400px',
           width: '90%',
           position: 'relative',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-          maxHeight: '90vh',
-          overflowY: 'auto',
         }}
       >
         <button
@@ -173,66 +161,24 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            color: '#8A8A8A',
           }}
         >
           <X size={24} />
         </button>
 
-        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <h2
-            style={{
-              fontSize: '28px',
-              fontWeight: 700,
-              color: '#5A5A5A',
-              marginBottom: '8px',
-            }}
-          >
-            {isLogin ? 'Welcome Back!' : 'Join Dibby'}
-          </h2>
-          {!isLogin && (
-            <div
-              style={{
-                background: 'linear-gradient(135deg, #FFE5F8 0%, #FFF3E0 100%)',
-                padding: '16px',
-                borderRadius: '12px',
-                marginTop: '16px',
-                border: '2px solid #FFB84D',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  marginBottom: '8px',
-                }}
-              >
-                <DollarSign size={24} color="#FFB84D" />
-                <span style={{ fontWeight: 700, color: '#5A5A5A', fontSize: '18px' }}>
-                  Get $1.00 Instantly!
-                </span>
-              </div>
-              <div style={{ fontSize: '14px', color: '#8A8A8A' }}>
-                Plus earn $1 for every friend you refer
-              </div>
-            </div>
-          )}
-        </div>
+        <h2 style={{ marginBottom: '8px', fontSize: '24px' }}>
+          {isLogin ? 'Login' : 'Sign Up'}
+        </h2>
+
+        {!isLogin && (
+          <p style={{ color: '#666', fontSize: '14px', marginBottom: '24px' }}>
+            Get $1 for signing up. Earn $1 for each friend you refer.
+          </p>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '16px' }}>
-            <label
-              style={{
-                display: 'block',
-                marginBottom: '8px',
-                fontWeight: 600,
-                color: '#5A5A5A',
-                fontSize: '14px',
-              }}
-            >
-              <Mail size={16} style={{ display: 'inline', marginRight: '8px' }} />
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>
               Email
             </label>
             <input
@@ -242,28 +188,17 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
               required
               style={{
                 width: '100%',
-                padding: '12px',
-                border: '2px solid #FFE5DB',
-                borderRadius: '8px',
+                padding: '10px',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
                 fontSize: '16px',
-                outline: 'none',
                 boxSizing: 'border-box',
               }}
-              placeholder="your@email.com"
             />
           </div>
 
           <div style={{ marginBottom: '16px' }}>
-            <label
-              style={{
-                display: 'block',
-                marginBottom: '8px',
-                fontWeight: 600,
-                color: '#5A5A5A',
-                fontSize: '14px',
-              }}
-            >
-              <Lock size={16} style={{ display: 'inline', marginRight: '8px' }} />
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>
               Password
             </label>
             <input
@@ -274,97 +209,54 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
               minLength={6}
               style={{
                 width: '100%',
-                padding: '12px',
-                border: '2px solid #FFE5DB',
-                borderRadius: '8px',
+                padding: '10px',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
                 fontSize: '16px',
-                outline: 'none',
                 boxSizing: 'border-box',
               }}
-              placeholder="Min 6 characters"
             />
           </div>
 
           {!isLogin && (
             <div style={{ marginBottom: '16px' }}>
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: '8px',
-                  fontWeight: 600,
-                  color: '#5A5A5A',
-                  fontSize: '14px',
-                  gap: '6px',
-                }}
-              >
-                <Gift size={16} />
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>
                 Referral Code (Optional)
-                <span
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    color: '#2E7D32',
-                    marginLeft: '4px',
-                  }}
-                >
-                  Get +$1 bonus!
-                </span>
               </label>
               <input
                 type="text"
                 value={referralCode}
                 onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
                 maxLength={6}
+                placeholder="Optional"
                 style={{
                   width: '100%',
-                  padding: '12px',
-                  border: '2px solid #FFE5DB',
-                  borderRadius: '8px',
+                  padding: '10px',
+                  border: '1px solid #ddd',
+                  borderRadius: '4px',
                   fontSize: '16px',
-                  outline: 'none',
                   boxSizing: 'border-box',
                   textTransform: 'uppercase',
-                  letterSpacing: '2px',
-                  fontWeight: 600,
                 }}
-                placeholder="ABC123"
               />
-              <div style={{ fontSize: '11px', color: '#8A8A8A', marginTop: '4px' }}>
-                6-character code from your friend
-              </div>
+              <small style={{ color: '#666', fontSize: '12px' }}>
+                Have a referral code? You'll both get $1!
+              </small>
             </div>
           )}
 
           {error && (
             <div
               style={{
-                backgroundColor: '#FFE5E5',
-                color: '#D32F2F',
-                padding: '12px',
-                borderRadius: '8px',
+                backgroundColor: '#fee',
+                color: '#c00',
+                padding: '10px',
+                borderRadius: '4px',
                 marginBottom: '16px',
                 fontSize: '14px',
-                fontWeight: 500,
               }}
             >
               {error}
-            </div>
-          )}
-
-          {success && (
-            <div
-              style={{
-                backgroundColor: '#E8F5E9',
-                color: '#2E7D32',
-                padding: '12px',
-                borderRadius: '8px',
-                marginBottom: '16px',
-                fontSize: '14px',
-                fontWeight: 500,
-              }}
-            >
-              {success}
             </div>
           )}
 
@@ -373,27 +265,25 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
             disabled={loading}
             style={{
               width: '100%',
-              padding: '14px',
-              backgroundColor: loading ? '#CCCCCC' : '#FFB84D',
+              padding: '12px',
+              backgroundColor: loading ? '#ccc' : '#FFB84D',
               color: 'white',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '4px',
               fontSize: '16px',
               fontWeight: 600,
               cursor: loading ? 'not-allowed' : 'pointer',
-              transition: 'background-color 0.3s',
             }}
           >
-            {loading ? '⏳ Processing...' : isLogin ? 'Login' : '🎁 Sign Up & Get $1'}
+            {loading ? 'Processing...' : isLogin ? 'Login' : 'Sign Up'}
           </button>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <div style={{ textAlign: 'center', marginTop: '16px' }}>
           <button
             onClick={() => {
               setIsLogin(!isLogin);
               setError('');
-              setSuccess('');
             }}
             style={{
               background: 'none',
@@ -401,12 +291,9 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
               color: '#FFB84D',
               cursor: 'pointer',
               fontSize: '14px',
-              fontWeight: 600,
             }}
           >
-            {isLogin
-              ? "Don't have an account? Sign Up"
-              : 'Already have an account? Login'}
+            {isLogin ? 'Need an account? Sign up' : 'Already have an account? Login'}
           </button>
         </div>
       </div>
