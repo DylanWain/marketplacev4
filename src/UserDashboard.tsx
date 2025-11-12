@@ -25,6 +25,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ user, onLogout }) 
 
   const loadStats = async () => {
     try {
+      // @ts-ignore - Supabase types
       const { data } = await supabase.rpc('get_user_stats', { user_id: user.id });
       if (data && data.length > 0) {
         setStats(data[0]);
