@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { supabase } from "./lib/supabase";
-import {
+import { SimpleAuth } from './SimpleAuth';
+import { UserDashboard } from './UserDashboard';
+import { DollarSign } from 'lucide-react'; // Add DollarSign to your lucide importsimport {
   Search,
   MapPin,
   Heart,
@@ -7714,17 +7716,49 @@ const [userProfile, setUserProfile] = useState<any>({
 const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 const [toasts, setToasts] = useState<Array<{ id: string; message: string; type: "success" | "error" | "warning" }>>([]);
 
+const [user, setUser] = useState<any>(null);
+const [showAuth, setShowAuth] = useState(false);
+const [showUserMenu, setShowUserMenu] = useState(false);
+
 const [conversations, setConversations] = useState<any[]>([]);
 const [activeConversation, setActiveConversation] = useState<string | null>(
   null
 );
 const [messageText, setMessageText] = useState<string>("");
 
-const sendMessage= () => {
+const sendMessage = () => {
   if (!messageText.trim()) return;
   showToast("Messaging feature coming soon!", "success");
   setMessageText("");
 };
+
+// AUTH HANDLERS FOR REFERRAL SYSTEM
+const handleAuthSuccess = (userData: any) => {
+  setUser(userData);
+  localStorage.setItem('dibby_user', JSON.stringify(userData));
+  setShowAuth(false);
+};
+
+const handleLogout = () => {
+  setUser(null);
+  localStorage.removeItem('dibby_user');
+  setShowUserMenu(false);
+};
+
+// REFERRAL CODE DETECTION
+useEffect(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const refCode = urlParams.get('ref');
+  if (refCode) {
+    localStorage.setItem('referralCode', refCode);
+    setShowAuth(true);
+  }
+  
+  const savedUser = localStorage.getItem('dibby_user');
+  if (savedUser) {
+    setUser(JSON.parse(savedUser));
+  }
+}, []);
   
 const toggleFavorite = (id: string) => {
   setFavorites((prev) => {
@@ -7734,7 +7768,9 @@ const toggleFavorite = (id: string) => {
     localStorage.setItem("favorites", JSON.stringify(newFavorites));
     return newFavorites;
   });
-};// ADD THIS - Computed active filters:
+};
+
+// ADD THIS - Computed active filters:
 const activeFilters = [
   selectedCategory?.name && selectedCategory.name !== "All"
     ? selectedCategory.name
@@ -7744,18 +7780,19 @@ const activeFilters = [
   condition !== "all" ? condition : null,
   daysSinceListed !== "all" ? `Listed: ${daysSinceListed}` : null,
 ].filter(Boolean);
+
 // ADD THIS:
 const clearAllFilters = () => {
   setSelectedCategory(null);
-    setPriceRange({ min: "", max: "" });
-    setCondition("all");
-    setDaysSinceListed("all");
-    setBedrooms("all");
-    setBathrooms("all");
-    setPropertyType("all");
-    setVehicleMake("all");
-    setVehicleModel("all");
-  };
+  setPriceRange({ min: "", max: "" });
+  setCondition("all");
+  setDaysSinceListed("all");
+  setBedrooms("all");
+  setBathrooms("all");
+  setPropertyType("all");
+  setVehicleMake("all");
+  setVehicleModel("all");
+};
 
   // ============================================
   // STEP 2: EXTRACT CITY FROM URL (REPLACES ~line 1501)
@@ -20884,10 +20921,10 @@ showToast(`${city} page coming soon!`, "success");                        }
                   } else {
                     setCurrentPage(item.page!);
                     setActiveView("landing");
-if ("scroll" in item && (item as any).scroll) {
-  setTimeout(() => {
-    document
-      .getElementById((item as any).scroll!)
+                    if ("scroll" in item && (item as any).scroll) {
+                      setTimeout(() => {
+                        document
+                          .getElementById((item as any).scroll!)
                           ?.scrollIntoView({ behavior: "smooth" });
                       }, 100);
                     }
@@ -20912,6 +20949,45 @@ if ("scroll" in item && (item as any).scroll) {
         {/* Desktop Buttons */}
         {!isMobile && (
           <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+            {/* AUTH BUTTON - ADDED HERE */}
+            {!user ? (
+              <button
+                onClick={() => setShowAuth(true)}
+                style={{
+                  padding: "10px 20px",
+                  backgroundColor: "#FFB84D",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                Sign Up & Get $1
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                style={{
+                  padding: "10px 20px",
+                  backgroundColor: "#2E7D32",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <DollarSign size={18} />
+                ${user.balance?.toFixed(2) || '0.00'}
+              </button>
+            )}
+
             <button
               onClick={() => setCurrentPage("profile")}
               style={{
@@ -20974,17 +21050,58 @@ if ("scroll" in item && (item as any).scroll) {
 
         {/* Mobile Menu Button */}
         {isMobile && (
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              padding: "8px",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            <Menu size={24} color="#5A5A5A" />
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            {/* AUTH BUTTON FOR MOBILE - ADDED HERE */}
+            {!user ? (
+              <button
+                onClick={() => setShowAuth(true)}
+                style={{
+                  padding: "8px 16px",
+                  backgroundColor: "#FFB84D",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontSize: "13px",
+                }}
+              >
+                Sign Up
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                style={{
+                  padding: "8px 12px",
+                  backgroundColor: "#2E7D32",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                }}
+              >
+                <DollarSign size={16} />
+                ${user.balance?.toFixed(2) || '0.00'}
+              </button>
+            )}
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              style={{
+                padding: "8px",
+                backgroundColor: "transparent",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              <Menu size={24} color="#5A5A5A" />
+            </button>
+          </div>
         )}
       </div>
 
@@ -21035,10 +21152,10 @@ if ("scroll" in item && (item as any).scroll) {
                   } else {
                     setCurrentPage(item.page!);
                     setActiveView("landing");
-                 if ("scroll" in item && (item as any).scroll) {
-  setTimeout(() => {
-    document
-      .getElementById((item as any).scroll!)
+                    if ("scroll" in item && (item as any).scroll) {
+                      setTimeout(() => {
+                        document
+                          .getElementById((item as any).scroll!)
                           ?.scrollIntoView({ behavior: "smooth" });
                       }, 100);
                     }
@@ -23126,7 +23243,7 @@ if ("scroll" in item && (item as any).scroll) {
                   setActiveView={setActiveView} // ← ADD THIS
                 />
               )}
-              {/* Toast Notifications */}
+             {/* Toast Notifications */}
               <ToastContainer toasts={toasts} />
               {/* Sticky CTA - Only on Landing Page */}
               {activeView === "landing" && currentPage === "home" && (
@@ -23139,6 +23256,21 @@ if ("scroll" in item && (item as any).scroll) {
             </>
           )}
         </>
+      )}
+
+      {/* AUTH MODALS - ADDED FOR REFERRAL SYSTEM */}
+      {showAuth && (
+        <SimpleAuth
+          onClose={() => setShowAuth(false)}
+          onSuccess={handleAuthSuccess}
+        />
+      )}
+
+      {showUserMenu && user && (
+        <UserDashboard
+          user={user}
+          onLogout={handleLogout}
+        />
       )}
     </div>
   );
