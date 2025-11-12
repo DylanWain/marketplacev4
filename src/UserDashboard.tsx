@@ -18,16 +18,15 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ user, onLogout }) 
 
   useEffect(() => {
     loadStats();
-    // Refresh stats every 30 seconds
     const interval = setInterval(loadStats, 30000);
     return () => clearInterval(interval);
   }, [user.id]);
 
   const loadStats = async () => {
     try {
-      // @ts-ignore - Supabase typesconst { data }: any = await supabase.rpc('get_user_stats', { user_id: user.id });
-      if (data && data.length > 0) {
-        setStats(data[0]);
+      const result = await (supabase as any).rpc('get_user_stats', { user_id: user.id });
+      if (result.data && result.data.length > 0) {
+        setStats(result.data[0]);
       }
     } catch (error) {
       console.error('Error loading stats:', error);
