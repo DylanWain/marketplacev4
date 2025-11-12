@@ -16,7 +16,6 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Auto-fill referral code from URL if present
   useEffect(() => {
     const savedRefCode = localStorage.getItem('referralCode');
     if (savedRefCode && !isLogin) {
@@ -32,10 +31,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
 
     try {
       if (isLogin) {
-        // ============================================
-        // LOGIN
-        // ============================================
-        // @ts-ignore - Supabase types
+        // @ts-expect-error - Users table exists in Supabase
         const { data, error } = await supabase
           .from('users')
           .select('*')
@@ -52,13 +48,9 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
         setSuccess('✅ Login successful! Welcome back!');
         setTimeout(() => onSuccess(data), 1000);
       } else {
-        // ============================================
-        // SIGNUP
-        // ============================================
         const cleanEmail = email.toLowerCase().trim();
 
-        // Check if email exists
-        // @ts-ignore - Supabase types
+        // @ts-expect-error - Users table exists in Supabase
         const { data: existingUser } = await supabase
           .from('users')
           .select('id')
@@ -71,10 +63,9 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
           return;
         }
 
-        // Get referrer if code provided
-        let referrerId = null;
+        let referrerId: any = null;
         if (referralCode.trim()) {
-          // @ts-ignore - Supabase types
+          // @ts-expect-error - Users table exists in Supabase
           const { data: referrer } = await supabase
             .from('users')
             .select('id, referral_code')
@@ -85,12 +76,10 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
             referrerId = referrer.id;
           } else {
             setError('Invalid referral code. Sign up anyway without it?');
-            // Don't return - let them sign up without referral
           }
         }
 
-        // Create new user with $1 signup bonus
-        // @ts-ignore - Supabase types
+        // @ts-expect-error - Users table exists in Supabase
         const { data: newUser, error: signupError } = await supabase
           .from('users')
           .insert([
@@ -98,7 +87,7 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
               email: cleanEmail,
               password,
               referred_by: referrerId,
-              balance: 1.00, // $1 signup bonus
+              balance: 1.00,
             },
           ])
           .select()
@@ -111,11 +100,9 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
           return;
         }
 
-        // If referred, create referral record and add $1 to referrer
         if (referrerId) {
           try {
-            // Create referral record
-            // @ts-ignore - Supabase types
+            // @ts-expect-error - Referrals table exists in Supabase
             await supabase.from('referrals').insert([
               {
                 referrer_id: referrerId,
@@ -124,29 +111,23 @@ export const SimpleAuth: React.FC<SimpleAuthProps> = ({ onClose, onSuccess }) =>
               },
             ]);
 
-            // Add $1 to referrer's balance using RPC
-            // @ts-ignore - Supabase types
+            // @ts-expect-error - RPC function exists in Supabase
             await supabase.rpc('increment_balance', {
               user_id: referrerId,
               amount: 1.0,
             });
 
             setSuccess(`🎉 Account created! You got $1.00 signup bonus + $1.00 referral bonus = $2.00!`);
-            
-            // Update balance locally to reflect referral bonus
             newUser.balance = 2.00;
           } catch (refError) {
             console.error('Referral processing error:', refError);
-            // Still proceed with signup even if referral fails
             setSuccess('🎉 Account created! You got $1.00 signup bonus!');
           }
         } else {
           setSuccess('🎉 Account created! You got $1.00 signup bonus!');
         }
 
-        // Clear referral code from localStorage
         localStorage.removeItem('referralCode');
-
         setTimeout(() => onSuccess(newUser), 2500);
       }
     } catch (err) {
