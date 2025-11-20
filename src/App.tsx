@@ -19378,154 +19378,33 @@ showToast(`${city} page coming soon!`, "success");                        }
             Fully insured. On your schedule. Results in 24 hours.
           </p>
 
-          {/* Main Input Bar */}
-          <div
+          {/* Big Orange CTA Button */}
+          <button
+            onClick={() => setIsModalOpen(true)}
             style={{
-              backgroundColor: "rgba(255, 255, 255, 0.95)",
-              borderRadius: "20px",
-              padding: "8px",
-              boxShadow: "0 8px 32px rgba(255, 180, 162, 0.15)",
-              border: "3px solid #FFE5DB",
-              maxWidth: "700px",
-              margin: "0 auto",
+              backgroundColor: "#FFB84D",
+              border: "none",
+              borderRadius: "16px",
+              padding: isMobile ? "20px 48px" : "24px 64px",
+              fontSize: isMobile ? "18px" : "20px",
+              fontWeight: "700",
+              color: "white",
+              cursor: "pointer",
+              boxShadow: "0 8px 32px rgba(255, 184, 77, 0.4)",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              marginBottom: "32px",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-3px)";
+              e.currentTarget.style.boxShadow = "0 12px 40px rgba(255, 184, 77, 0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 8px 32px rgba(255, 184, 77, 0.4)";
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: isMobile ? "column" : "row",
-                alignItems: "stretch",
-                gap: isMobile ? "12px" : "0",
-              }}
-            >
-              {/* Listing URL Input */}
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  padding: isMobile ? "12px 16px" : "16px 20px",
-                  borderRight: isMobile ? "none" : "1px solid #FFE5DB",
-                }}
-              >
-                <ExternalLink
-                  size={20}
-                  color="#FFB84D"
-                  style={{ marginRight: "12px", flexShrink: 0 }}
-                />
-                <div style={{ flex: 1, textAlign: "left" }}>
-                  <div
-                    style={{
-                      fontSize: "11px",
-                      color: "#ABABAB",
-                      fontWeight: "600",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    Listing URL
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Paste marketplace link..."
-                    value={heroListingUrl}
-                    onChange={(e) => setHeroListingUrl(e.target.value)}
-                    style={{
-                      width: "100%",
-                      border: "none",
-                      outline: "none",
-                      fontSize: "15px",
-                      color: "#5A5A5A",
-                      backgroundColor: "transparent",
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Service Type Dropdown */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: isMobile ? "12px 16px" : "16px 20px",
-                  position: "relative",
-                  minWidth: isMobile ? "auto" : "200px",
-                }}
-              >
-                <Package
-                  size={20}
-                  color="#FFB84D"
-                  style={{ marginRight: "12px", flexShrink: 0 }}
-                />
-                <div style={{ flex: 1, textAlign: "left" }}>
-                  <div
-                    style={{
-                      fontSize: "11px",
-                      color: "#ABABAB",
-                      fontWeight: "600",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    Service
-                  </div>
-                  <select
-                    value={heroSelectedService}
-                    onChange={(e) => setHeroSelectedService(e.target.value)}
-                    style={{
-                      width: "100%",
-                      border: "none",
-                      outline: "none",
-                      fontSize: "15px",
-                      color: "#5A5A5A",
-                      backgroundColor: "transparent",
-                      cursor: "pointer",
-                      appearance: "none",
-                    }}
-                  >
-                    <option value="inspection">Inspection - $49</option>
-                    <option value="delivery">Delivery - $75</option>
-                    <option value="both">Both - $99</option>
-                  </select>
-                </div>
-                <ChevronRight
-                  size={16}
-                  color="#ABABAB"
-                  style={{ transform: "rotate(90deg)", marginLeft: "8px" }}
-                />
-              </div>
-
-              {/* Submit Button */}
-              <button
-                onClick={() => setIsModalOpen(true)}
-                style={{
-                  backgroundColor: "#FFB84D",
-                  border: "none",
-                  borderRadius: "14px",
-                  padding: isMobile ? "16px 24px" : "16px 32px",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  color: "white",
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  boxShadow: "0 4px 16px rgba(255, 184, 77, 0.3)",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 184, 77, 0.4)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 4px 16px rgba(255, 184, 77, 0.3)";
-                }}
-              >
-                Get Quote
-              </button>
-            </div>
-          </div>
+            Get Quote
+          </button>
 
           {/* Trust Indicators */}
           <div
@@ -19533,7 +19412,7 @@ showToast(`${city} page coming soon!`, "success");                        }
               display: "flex",
               justifyContent: "center",
               gap: isMobile ? "24px" : "48px",
-              marginTop: "32px",
+              marginTop: "16px",
               flexWrap: "wrap",
             }}
           >
@@ -19579,6 +19458,7 @@ showToast(`${city} page coming soon!`, "success");                        }
           </div>
         </div>
       </section>
+        
 
       {/* HOW IT WORKS SECTION */}
       <section
