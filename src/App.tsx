@@ -431,7 +431,9 @@ const DynamicMarketplacePage: React.FC<DynamicPageProps> = ({
   const { isMobile } = useResponsive();
   const [listings, setListings] = useState<ListingItem[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const [listingUrl, setListingUrl] = useState("");
+  const [selectedService, setSelectedService] = useState("inspection");
+  
   // Generate NUCLEAR SEO content
   const pageContent = useMemo(() => {
     // Capitalize helper
@@ -749,7 +751,7 @@ const DynamicMarketplacePage: React.FC<DynamicPageProps> = ({
         ]}
       />
 
-      {/* Hero Section */}
+{/* Hero Section */}
       <div
         style={{
           background: "linear-gradient(135deg, #FFB84D 0%, #FF9F1C 100%)",
@@ -872,7 +874,7 @@ const DynamicMarketplacePage: React.FC<DynamicPageProps> = ({
           </div>
         </div>
       </div>
-
+      
       {/* SEO-Rich Long-Form Content */}
       <div
         style={{
