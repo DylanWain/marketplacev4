@@ -7718,6 +7718,8 @@ const [userProfile, setUserProfile] = useState<any>({
   bio: "",
 });
 const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+const [heroListingUrl, setHeroListingUrl] = useState("");
+const [heroSelectedService, setHeroSelectedService] = useState("inspection");
 const [toasts, setToasts] = useState<Array<{ id: string; message: string; type: "success" | "error" | "warning" }>>([]);
 
 const [user, setUser] = useState<any>(null);
@@ -19288,12 +19290,12 @@ showToast(`${city} page coming soon!`, "success");                        }
   // ============================================
   const HomePage = () => (
     <div>
-      {/* HERO SECTION */}
+{/* HERO SECTION */}
       <section
         style={{
           background:
             "linear-gradient(135deg, #FFF9E6 0%, #FFE5F8 35%, #E5F8FF 70%, #F0FFE5 100%)",
-          padding: isMobile ? "60px 20px 80px" : "100px 32px 120px",
+          padding: isMobile ? "80px 20px 100px" : "120px 32px 140px",
           position: "relative",
           overflow: "hidden",
         }}
@@ -19325,181 +19327,253 @@ showToast(`${city} page coming soon!`, "success");                        }
 
         <div
           style={{
-            maxWidth: "1100px",
+            maxWidth: "900px",
             margin: "0 auto",
             textAlign: "center",
             position: "relative",
             zIndex: 1,
           }}
         >
-          <div
-            style={{
-              display: "inline-block",
-              backgroundColor: "rgba(255, 184, 77, 0.15)",
-              padding: isMobile ? "8px 20px" : "10px 24px",
-              borderRadius: "50px",
-              marginBottom: isMobile ? "24px" : "28px",
-              border: "2px solid rgba(255, 184, 77, 0.3)",
-            }}
-          >
-            <span
-              style={{
-                fontSize: isMobile ? "13px" : "15px",
-                fontWeight: "600",
-                color: "#FFB84D",
-                letterSpacing: "0.5px",
-              }}
-            >
-              🎉 WE TOUR & DELIVER ANY LISTING — STARTING AT $49
-            </span>
-          </div>
-
           <h1
             style={{
-              fontSize: isMobile ? "36px" : "64px",
+              fontSize: isMobile ? "40px" : "72px",
               fontWeight: "800",
               color: "#5A5A5A",
-              marginBottom: isMobile ? "20px" : "28px",
+              marginBottom: isMobile ? "16px" : "24px",
               lineHeight: "1.1",
-              letterSpacing: "-1.5px",
+              letterSpacing: "-2px",
             }}
           >
-            We Tour Properties & Deliver Items
-            <br />
-            <span style={{ color: "#FFB84D" }}>From Any Marketplace</span>
+            Inspect{" "}
+            <span
+              style={{
+                backgroundColor: "rgba(255, 184, 77, 0.3)",
+                padding: "0 12px",
+                borderRadius: "8px",
+              }}
+            >
+              anything
+            </span>
           </h1>
+          <h2
+            style={{
+              fontSize: isMobile ? "28px" : "48px",
+              fontWeight: "400",
+              color: "#ABABAB",
+              marginBottom: isMobile ? "24px" : "32px",
+              lineHeight: "1.2",
+            }}
+          >
+            with the click of a button
+          </h2>
 
           <p
             style={{
-              fontSize: isMobile ? "18px" : "22px",
+              fontSize: isMobile ? "16px" : "18px",
               color: "#7A7A7A",
-              lineHeight: "1.6",
-              maxWidth: "850px",
-              margin: "0 auto 48px",
+              lineHeight: "1.5",
+              marginBottom: isMobile ? "40px" : "48px",
             }}
           >
-            Found something on Facebook Marketplace, Craigslist, or OfferUp?
-            <br />
-            <strong style={{ color: "#5A5A5A" }}>
-              Send us the link — we'll inspect it and deliver it to your door.
-            </strong>
+            Fully insured. On your schedule. Results in 24 hours.
           </p>
 
+          {/* Main Input Bar */}
+          <div
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.95)",
+              borderRadius: "20px",
+              padding: "8px",
+              boxShadow: "0 8px 32px rgba(255, 180, 162, 0.15)",
+              border: "3px solid #FFE5DB",
+              maxWidth: "700px",
+              margin: "0 auto",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: isMobile ? "column" : "row",
+                alignItems: "stretch",
+                gap: isMobile ? "12px" : "0",
+              }}
+            >
+              {/* Listing URL Input */}
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  padding: isMobile ? "12px 16px" : "16px 20px",
+                  borderRight: isMobile ? "none" : "1px solid #FFE5DB",
+                }}
+              >
+                <ExternalLink
+                  size={20}
+                  color="#FFB84D"
+                  style={{ marginRight: "12px", flexShrink: 0 }}
+                />
+                <div style={{ flex: 1, textAlign: "left" }}>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      color: "#ABABAB",
+                      fontWeight: "600",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    Listing URL
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Paste marketplace link..."
+                    value={heroListingUrl}
+                    onChange={(e) => setHeroListingUrl(e.target.value)}
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      fontSize: "15px",
+                      color: "#5A5A5A",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Service Type Dropdown */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: isMobile ? "12px 16px" : "16px 20px",
+                  position: "relative",
+                  minWidth: isMobile ? "auto" : "200px",
+                }}
+              >
+                <Package
+                  size={20}
+                  color="#FFB84D"
+                  style={{ marginRight: "12px", flexShrink: 0 }}
+                />
+                <div style={{ flex: 1, textAlign: "left" }}>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      color: "#ABABAB",
+                      fontWeight: "600",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    Service
+                  </div>
+                  <select
+                    value={heroSelectedService}
+                    onChange={(e) => setHeroSelectedService(e.target.value)}
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      fontSize: "15px",
+                      color: "#5A5A5A",
+                      backgroundColor: "transparent",
+                      cursor: "pointer",
+                      appearance: "none",
+                    }}
+                  >
+                    <option value="inspection">Inspection - $49</option>
+                    <option value="delivery">Delivery - $75</option>
+                    <option value="both">Both - $99</option>
+                  </select>
+                </div>
+                <ChevronRight
+                  size={16}
+                  color="#ABABAB"
+                  style={{ transform: "rotate(90deg)", marginLeft: "8px" }}
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button
+                onClick={() => setIsModalOpen(true)}
+                style={{
+                  backgroundColor: "#FFB84D",
+                  border: "none",
+                  borderRadius: "14px",
+                  padding: isMobile ? "16px 24px" : "16px 32px",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  color: "white",
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                  boxShadow: "0 4px 16px rgba(255, 184, 77, 0.3)",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 184, 77, 0.4)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 4px 16px rgba(255, 184, 77, 0.3)";
+                }}
+              >
+                Get Quote
+              </button>
+            </div>
+          </div>
+
+          {/* Trust Indicators */}
           <div
             style={{
               display: "flex",
-              flexDirection: isMobile ? "column" : "row",
               justifyContent: "center",
-              gap: "20px",
-              marginBottom: isMobile ? "40px" : "56px",
-            }}
-          >
-            <button
-              onClick={() => setIsModalOpen(true)}
-              style={{
-                padding: isMobile ? "18px 36px" : "20px 44px",
-                backgroundColor: "#FFB84D",
-                border: "none",
-                borderRadius: "20px",
-                fontSize: "18px",
-                fontWeight: "700",
-                color: "white",
-                cursor: "pointer",
-                boxShadow: "0 8px 28px rgba(255, 184, 77, 0.35)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "12px",
-                transition: "transform 0.2s, box-shadow 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow =
-                  "0 12px 32px rgba(255, 184, 77, 0.45)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow =
-                  "0 8px 28px rgba(255, 184, 77, 0.35)";
-              }}
-            >
-              <Package size={22} />
-              Submit Any Listing →
-            </button>
-            <button
-              onClick={() => {
-                setActiveView("browse");
-                if (rawResults.length === 0 && !selectedCategory) {
-                  const defaultCategory = CATEGORIES.find(
-                    (c) => c.id === "furniture"
-                  );
-                  if (defaultCategory) {
-                    setTimeout(() => handleCategoryClick(defaultCategory), 100);
-                  }
-                }
-              }}
-              style={{
-                padding: isMobile ? "18px 36px" : "20px 44px",
-                backgroundColor: "white",
-                border: "3px solid #FFB84D",
-                borderRadius: "20px",
-                fontSize: "18px",
-                fontWeight: "700",
-                color: "#5A5A5A",
-                cursor: "pointer",
-                boxShadow: "0 8px 28px rgba(255, 184, 77, 0.15)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "12px",
-              }}
-            >
-              <Search size={22} />
-              Browse Marketplace
-            </button>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
               gap: isMobile ? "24px" : "48px",
-              color: "#7A7A7A",
-              fontSize: "15px",
-              fontWeight: "500",
+              marginTop: "32px",
+              flexWrap: "wrap",
             }}
           >
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                justifyContent: isMobile ? "flex-start" : "center",
+                gap: "8px",
+                color: "#7A7A7A",
+                fontSize: "14px",
+                fontWeight: "500",
               }}
             >
-              <Camera size={22} color="#D4BFEA" />
-              <span>Photo & Video Inspection</span>
+              <Camera size={18} color="#D4BFEA" />
+              <span>Photo & Video</span>
             </div>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                justifyContent: isMobile ? "flex-start" : "center",
+                gap: "8px",
+                color: "#7A7A7A",
+                fontSize: "14px",
+                fontWeight: "500",
               }}
             >
-              <Truck size={22} color="#B8E6D5" />
-              <span>Professional Delivery</span>
+              <Truck size={18} color="#B8E6D5" />
+              <span>White Glove Delivery</span>
             </div>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                justifyContent: isMobile ? "flex-start" : "center",
+                gap: "8px",
+                color: "#7A7A7A",
+                fontSize: "14px",
+                fontWeight: "500",
               }}
             >
-              <Shield size={22} color="#FFD4A0" />
+              <Shield size={18} color="#FFD4A0" />
               <span>$1M Insured</span>
             </div>
           </div>
