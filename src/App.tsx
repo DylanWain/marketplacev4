@@ -19334,50 +19334,35 @@ showToast(`${city} page coming soon!`, "success");                        }
             zIndex: 1,
           }}
         >
-          <h1
+<h1
             style={{
-              fontSize: isMobile ? "40px" : "72px",
+              fontSize: isMobile ? "32px" : "56px",
               fontWeight: "800",
               color: "#5A5A5A",
               marginBottom: isMobile ? "16px" : "24px",
-              lineHeight: "1.1",
-              letterSpacing: "-2px",
+              lineHeight: "1.15",
+              letterSpacing: "-1.5px",
             }}
           >
-            Inspect{" "}
-            <span
-              style={{
-                backgroundColor: "rgba(255, 184, 77, 0.3)",
-                padding: "0 12px",
-                borderRadius: "8px",
-              }}
-            >
-              anything
+            Unfiltered apartment tours.
+            <br />
+            <span style={{ color: "#FFB84D" }}>
+              For renters, by real locals.
             </span>
           </h1>
-          <h2
-            style={{
-              fontSize: isMobile ? "28px" : "48px",
-              fontWeight: "400",
-              color: "#ABABAB",
-              marginBottom: isMobile ? "24px" : "32px",
-              lineHeight: "1.2",
-            }}
-          >
-            with the click of a button
-          </h2>
 
           <p
             style={{
-              fontSize: isMobile ? "16px" : "18px",
+              fontSize: isMobile ? "16px" : "20px",
               color: "#7A7A7A",
-              lineHeight: "1.5",
-              marginBottom: isMobile ? "40px" : "48px",
+              lineHeight: "1.6",
+              maxWidth: "600px",
+              margin: isMobile ? "0 auto 40px" : "0 auto 48px",
             }}
           >
-            Fully insured. On your schedule. Results in 24 hours.
+            Dibby virtual tours are filmed by local residents to give you an unbiased, honest look at any apartment — no broker spin.
           </p>
-
+          
           {/* Big Orange CTA Button */}
           <button
             onClick={() => setIsModalOpen(true)}
