@@ -8499,80 +8499,98 @@ images: (data?.images || []).map((url: string) => ({
         "san-jose-ca",
       ];
 
-      // 🔥 FIX: Check for city LANDING pages first (e.g., /phoenix-az)
-      const citySlugMatch = path.match(/^\/([a-z-]+-[a-z]{2})$/);
-      if (citySlugMatch) {
-        const citySlug = citySlugMatch[1];
-        if (existingCities.includes(citySlug)) {
-          console.log("✅ City LANDING page:", citySlug);
-          setCurrentPage(`cities/${citySlug}`);
-          setActiveView("landing");
-          setDynamicRoute(null);
-          setIs404(false);
-          return;
-        }
-      }
+// 🔥 FIX: Check for city LANDING pages first (e.g., /phoenix-az)
+const citySlugMatch = path.match(/^\/([a-z-]+-[a-z]{2})$/);
+if (citySlugMatch) {
+  const citySlug = citySlugMatch[1];
+  if (existingCities.includes(citySlug)) {
+    console.log("✅ City LANDING page:", citySlug);
+   setCurrentPage(`cities/${citySlug}`);
+    setActiveView("landing");
+    setDynamicRoute(null);
+    setIs404(false);
+    return;
+  }
+}
 
-      // 🔥 FIX: /marketplace/* ALWAYS shows marketplace grid, NOT landing
-      if (path.startsWith("/marketplace/")) {
-        const params = parseURL(path);
+// 🔥 FIX: /marketplace/* ALWAYS shows marketplace grid, NOT landing
+if (path.startsWith("/marketplace/")) {
+  const params = parseURL(path);
+  if (params) {
+    console.log("✅ MARKETPLACE PAGE:", params);
+    setDynamicRoute(params);
+    setActiveView("browse");
+    setIs404(false);
+  } else {
+    console.log("❌ Invalid marketplace URL");
+    setIs404(true);
+  }
+  return;
+}
 
-        if (params) {
-          console.log("✅ MARKETPLACE PAGE:", params);
-          setDynamicRoute(params);
-setActiveView("browse");
-          setIs404(false);
-        } else {
-          console.log("❌ Invalid marketplace URL");
-          setIs404(true);
-        }
-        return;
-      }
+// Handle /marketplace root (browse view)
+if (path === "/marketplace") {
+  console.log("✅ Marketplace browse");
+  setActiveView("browse");
+  setDynamicRoute(null);
+  setIs404(false);
+  return;
+}
 
-      // Other landing pages
-      // Handle /marketplace root (browse view)
-      if (path === "/marketplace") {
-        console.log("✅ Marketplace browse");
-        setActiveView("browse");
-        setDynamicRoute(null);
-        setIs404(false);
-        return;
-      }
-      const pageMap: Record<string, string> = {
-        "/how-it-works": "how-it-works",
-        "/calculator": "calculator",
-        "/about": "about",
-        "/contact": "contact",
-        "/blog": "blog",
-        "/faq": "faq",
-        "/privacy": "privacy",
-        "/terms": "terms",
-        "/service-areas": "service-areas",
-        "/sitemap": "sitemap",
-      };
+// 🔥 NEW: Dynamic service landing pages for SEO (993K URLs)
+// Pattern: /{item}-{service}-{city}-{state}
+// Example: /couch-delivery-brooklyn-ny
+const servicePageMatch = path.match(/^\/([a-z-]+)-(delivery|inspection|tour)-([a-z-]+)-([a-z]{2})$/i);
+if (servicePageMatch) {
+  const [, item, service, city, state] = servicePageMatch;
+  console.log("✅ Service landing page:", { item, service, city, state });
+  
+  setDynamicRoute({
+    city: city.replace(/-/g, " "),
+    state: state.toUpperCase(),
+    category: item.replace(/-/g, " "),
+  });
+  setActiveView("browse");
+  setIs404(false);
+  return;
+}
 
-      if (pageMap[path]) {
-        console.log("✅ Landing page:", path);
-        setCurrentPage(pageMap[path]);
-        setActiveView("landing");
-        setDynamicRoute(null);
-        setIs404(false);
-        return;
-      }
+// Other landing pages
+    const pageMap: Record<string, string> = {
+      "/how-it-works": "how-it-works",
+      "/calculator": "calculator",
+      "/about": "about",
+      "/contact": "contact",
+      "/blog": "blog",
+      "/faq": "faq",
+      "/privacy": "privacy",
+      "/terms": "terms",
+      "/service-areas": "service-areas",
+      "/sitemap": "sitemap",
+    };  // ← This closes the pageMap object (correct)
+    
+    if (pageMap[path]) {
+      console.log("✅ Landing page:", path);
+      setCurrentPage(pageMap[path]);
+      setActiveView("landing");
+      setDynamicRoute(null);
+      setIs404(false);
+      return;
+    }
+    
+    // No match - 404
+    console.log("❌ 404");
+    setIs404(true);
+  };  // ← This closes handleRouteChange function (move it here!)
 
-      // No match - 404
-      console.log("❌ 404");
-      setIs404(true);
-    };
-
-    // Run on mount and listen for URL changes
-    handleRouteChange();
-    window.addEventListener("popstate", handleRouteChange);
-
-    return () => {
-      window.removeEventListener("popstate", handleRouteChange);
-    };
-  }, []);
+  // Run on mount and listen for URL changes
+  handleRouteChange();
+  window.addEventListener("popstate", handleRouteChange);
+  
+  return () => {
+    window.removeEventListener("popstate", handleRouteChange);
+  };
+}, []);
 
   // Load from localStorage on mount
   useEffect(() => {
