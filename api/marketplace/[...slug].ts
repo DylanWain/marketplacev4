@@ -115,4 +115,4 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Content-Type', 'text/html');
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
   return res.status(200).send(html);
-}
+} 
