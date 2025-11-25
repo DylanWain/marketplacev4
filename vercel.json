@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/sitemap-index.xml",
-      "destination": "/sitemap-index.xml"
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
     },
     {
       "source": "/sitemap-cities.xml",
@@ -17,10 +17,6 @@
       "destination": "/sitemap-zips-2.xml"
     },
     {
-      "source": "/$1.xml",
-      "destination": "/$1.xml"
-    },
-    {
       "source": "/api/generate-sitemap",
       "destination": "/api/generate-sitemap"
     },
@@ -32,16 +28,8 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "headers": [
-    {
-      "source": "/sitemap-index.xml",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml"
-        }
-      ]
+  ]
+}
     }
   ]
 }
