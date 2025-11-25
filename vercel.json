@@ -1,14 +1,9 @@
 {
-  "routes": [
-    {
-      "src": "/sitemap.xml",
-      "dest": "/sitemap.xml",
-      "headers": {
-        "Content-Type": "application/xml"
-      }
-    }
-  ],
   "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
     {
       "source": "/api/generate-sitemap",
       "destination": "/api/generate-sitemap"
@@ -16,6 +11,17 @@
     {
       "source": "/marketplace/:path*",
       "destination": "/api/marketplace/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        }
+      ]
     }
   ]
 }
