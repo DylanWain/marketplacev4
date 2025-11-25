@@ -1,17 +1,13 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default function handler(req, res) {
   const { slug } = req.query;
   const slugParts = Array.isArray(slug) ? slug : [slug];
   const url = `/marketplace/${slugParts.join('/')}`;
   
-  // Parse URL to get city/category/zip info
   let title = '';
   let h1 = '';
   let description = '';
   
   if (slugParts.length === 1 && slugParts[0]?.match(/^(.+)-([a-z]{2})$/i)) {
-    // City page: los-angeles-ca
     const parts = slugParts[0].split('-');
     const state = parts.pop()?.toUpperCase() || '';
     const city = parts.join(' ').replace(/\b\w/g, l => l.toUpperCase());
@@ -21,14 +17,12 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     description = `Professional marketplace delivery in ${city}, ${state}. We inspect & deliver items from Facebook Marketplace, Craigslist, OfferUp.`;
   }
   else if (slugParts.length === 2 && slugParts[0] === 'zip') {
-    // ZIP page: zip/90210
     const zipcode = slugParts[1];
     title = `Marketplace Delivery ZIP ${zipcode} | Dibby`;
     h1 = `Marketplace Delivery for ZIP ${zipcode}`;
     description = `Professional marketplace delivery for ZIP code ${zipcode}. Inspection & delivery from Facebook Marketplace, Craigslist, OfferUp.`;
   }
   else if (slugParts.length === 2 && slugParts[0]?.match(/^(.+)-([a-z]{2})$/i)) {
-    // City + category: los-angeles-ca/furniture
     const parts = slugParts[0].split('-');
     const state = parts.pop()?.toUpperCase() || '';
     const city = parts.join(' ').replace(/\b\w/g, l => l.toUpperCase());
@@ -39,7 +33,8 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     description = `${category} delivery in ${city}, ${state}. Professional inspection and delivery service.`;
   }
   else {
-    return res.status(404).send('Page not found');
+    res.status(404).send('Page not found');
+    return;
   }
   
   const html = `<!DOCTYPE html>
@@ -114,5 +109,5 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
   res.setHeader('Content-Type', 'text/html');
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
-  return res.status(200).send(html);
-} 
+  res.status(200).send(html);
+}
