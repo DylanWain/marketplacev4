@@ -1,40 +1,52 @@
 module.exports = (req, res) => {
   const { slug } = req.query;
   const slugParts = Array.isArray(slug) ? slug : [slug];
-  const url = `/marketplace/${slugParts.join('/')}`;
   
-  let title = '';
-  let h1 = '';
-  let description = '';
+  let title = 'Dibby Marketplace';
+  let h1 = 'Marketplace Delivery';
+  let description = 'Professional marketplace delivery service';
   
-  if (slugParts.length === 1 && slugParts[0]?.match(/^(.+)-([a-z]{2})$/i)) {
-    const parts = slugParts[0].split('-');
-    const state = parts.pop()?.toUpperCase() || '';
-    const city = parts.join(' ').replace(/\b\w/g, l => l.toUpperCase());
+  // City page: los-angeles-ca
+  if (slugParts.length === 1) {
+    const slug0 = slugParts[0] || '';
+    const parts = slug0.split('-');
+    const state = parts[parts.length - 1];
     
-    title = `Marketplace Delivery in ${city}, ${state} | Dibby`;
-    h1 = `Marketplace Delivery in ${city}, ${state}`;
-    description = `Professional marketplace delivery in ${city}, ${state}. We inspect & deliver items from Facebook Marketplace, Craigslist, OfferUp.`;
+    if (state && state.length === 2) {
+      const cityParts = parts.slice(0, -1);
+      const city = cityParts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
+      const stateUpper = state.toUpperCase();
+      
+      title = `Marketplace Delivery in ${city}, ${stateUpper} | Dibby`;
+      h1 = `Marketplace Delivery in ${city}, ${stateUpper}`;
+      description = `Professional marketplace delivery in ${city}, ${stateUpper}. We inspect & deliver items from Facebook Marketplace, Craigslist, OfferUp.`;
+    }
   }
+  
+  // ZIP page: zip/90210
   else if (slugParts.length === 2 && slugParts[0] === 'zip') {
     const zipcode = slugParts[1];
     title = `Marketplace Delivery ZIP ${zipcode} | Dibby`;
     h1 = `Marketplace Delivery for ZIP ${zipcode}`;
     description = `Professional marketplace delivery for ZIP code ${zipcode}.`;
   }
-  else if (slugParts.length === 2 && slugParts[0]?.match(/^(.+)-([a-z]{2})$/i)) {
-    const parts = slugParts[0].split('-');
-    const state = parts.pop()?.toUpperCase() || '';
-    const city = parts.join(' ').replace(/\b\w/g, l => l.toUpperCase());
-    const category = slugParts[1]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || '';
+  
+  // City + category: los-angeles-ca/furniture
+  else if (slugParts.length === 2) {
+    const slug0 = slugParts[0] || '';
+    const parts = slug0.split('-');
+    const state = parts[parts.length - 1];
     
-    title = `${category} Delivery in ${city}, ${state} | Dibby`;
-    h1 = `${category} Delivery in ${city}, ${state}`;
-    description = `${category} delivery in ${city}, ${state}. Professional inspection and delivery.`;
-  }
-  else {
-    res.status(404).send('Page not found');
-    return;
+    if (state && state.length === 2) {
+      const cityParts = parts.slice(0, -1);
+      const city = cityParts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
+      const stateUpper = state.toUpperCase();
+      const category = (slugParts[1] || '').split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
+      
+      title = `${category} Delivery in ${city}, ${stateUpper} | Dibby`;
+      h1 = `${category} Delivery in ${city}, ${stateUpper}`;
+      description = `${category} delivery in ${city}, ${stateUpper}. Professional inspection and delivery.`;
+    }
   }
   
   const html = `<!DOCTYPE html>
