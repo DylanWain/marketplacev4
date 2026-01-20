@@ -1,0 +1,11 @@
+# DibbyTour Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://dibbytour.com/sitemap-index.xml
+
+# Disallow admin areas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
