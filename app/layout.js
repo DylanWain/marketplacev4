@@ -205,7 +205,7 @@ const jsonLd = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
+      <head><script async src="https://www.googletagmanager.com/gtag/js?id=G-TS7VF2J0P9"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-TS7VF2J0P9");</script>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
