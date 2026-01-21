@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  "editor.codeActionsOnSave": {},
+  "editor.linkedEditing": false,
+  "editor.cursorSurroundingLines": 10,
+  "editor.stablePeek": true,
+  "eslint.format.enable": false,
+  "eslint.codeActionsOnSave.mode": "none",
+  "[javascript]": { "editor.defaultFormatter": null },
+  "[javascriptreact]": { "editor.defaultFormatter": null },
+  "[typescript]": { "editor.defaultFormatter": null },
+  "[typescriptreact]": { "editor.defaultFormatter": null }
+}
