@@ -1,4 +1,5 @@
 import './globals.css'
+import Script from 'next/script'
 
 export const metadata = {
   metadataBase: new URL('https://dibbytour.com'),
@@ -205,7 +206,7 @@ const jsonLd = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head><script async src="https://www.googletagmanager.com/gtag/js?id=G-TS7VF2J0P9"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-TS7VF2J0P9");</script>
+      <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
@@ -222,7 +223,7 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
+      </head><Script async src="https://www.googletagmanager.com/gtag/js?id=G-TS7VF2J0P9" /><Script id="ga4" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-TS7VF2J0P9")`}</Script>
       <body className="antialiased">
         {children}
       </body>
