@@ -2117,8 +2117,7 @@ export default function ClientPage({ keywordData }) {
             </button>
           </div>
         </section>
-      </main>
-<footer style={{ background: '#111827', borderTop: '1px solid #374151', padding: '3rem 1rem', marginTop: '4rem' }}>
+      </main><footer style={{ background: '#111827', borderTop: '1px solid #374151', padding: '3rem 1rem', marginTop: '4rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
           <div>
             <h5 style={{ fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '1rem', color: '#a78bfa' }}>DibbyTour</h5>
