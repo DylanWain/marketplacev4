@@ -135,7 +135,7 @@ const PROPERTY_TYPE_DATA = {
   },
   'house': {
     name: 'Single-Family Home',
-    icon: '🏠',
+    icon: '� ',
     checklistItems: ['roof condition', 'foundation cracks', 'yard maintenance responsibility', 'HVAC system age', 'water heater condition', 'fence/gate functionality', 'driveway condition', 'garage door operation', 'exterior security', 'pest evidence'],
     commonProblems: ['unexpected yard work requirements', 'old HVAC systems failing', 'plumbing issues', 'roof leaks', 'pest infestations'],
     specificAdvice: 'Clarify all maintenance responsibilities in lease. Single-family homes often require tenant to handle lawn care, snow removal, etc. Check age of major systems (HVAC, water heater, appliances).'
@@ -546,7 +546,7 @@ export default function ClientPage({ keywordData }) {
         {/* CONTEXTUAL ALERTS - Platform */}
         {platform && (
           <div style={{ background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '16px', padding: '24px', marginBottom: '32px' }}>
-            <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '12px', color: '#f87171' }}>⚠️ {platform.name} Scam Alert</h3>
+            <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '12px', color: '#f87171' }}>� ️ {platform.name} Scam Alert</h3>
             <p style={{ color: '#d1d5db' }}><strong>Common scams:</strong> {platform.scams.join(', ')}</p>
           </div>
         )}
@@ -737,7 +737,7 @@ export default function ClientPage({ keywordData }) {
               </div>
 
               <div style={{ background: 'rgba(251, 191, 36, 0.1)', border: '1px solid rgba(251, 191, 36, 0.3)', borderRadius: '12px', padding: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#fbbf24', marginBottom: '0.75rem' }}>⚠️ Hidden Defects</h3>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#fbbf24', marginBottom: '0.75rem' }}>� ️ Hidden Defects</h3>
                 <p style={{ fontSize: '0.9375rem', color: '#d1d5db' }}>
                   41% of {title} properties have serious defects not disclosed in listings. From mold and pest infestations to electrical hazards and plumbing failures, we identify problems before they become your expensive nightmare.
                 </p>
@@ -1020,7 +1020,7 @@ export default function ClientPage({ keywordData }) {
                         ${city ? `<div style="margin-top: 1rem; padding: 0.75rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px;">
                           <div style="font-size: 0.875rem; color: #d1d5db;">Average ${city.name} Rent: ${city.rent}</div>
                           <div style="font-size: 0.75rem; color: ${maxRent >= parseFloat(city.rent.replace(/[$,]/g, '')) ? '#10b981' : '#ef4444'}; margin-top: 0.25rem;">
-                            ${maxRent >= parseFloat(city.rent.replace(/[$,]/g, '')) ? '✓ You can afford it!' : '⚠️ Above your budget'}
+                            ${maxRent >= parseFloat(city.rent.replace(/[$,]/g, '')) ? '✓ You can afford it!' : '� ️ Above your budget'}
                           </div>
                         </div>` : ''}
                       </div>
@@ -1069,7 +1069,7 @@ export default function ClientPage({ keywordData }) {
                 <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff' }}>{city.population}</p>
               </div>
               <div style={{ background: '#111827', padding: '1.5rem', borderRadius: '12px' }}>
-                <h4 style={{ color: '#ef4444', fontSize: '1.2rem', marginBottom: '0.5rem' }}>⚠️ Avg Scam Loss</h4>
+                <h4 style={{ color: '#ef4444', fontSize: '1.2rem', marginBottom: '0.5rem' }}>� ️ Avg Scam Loss</h4>
                 <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff' }}>{city.scamAvg}</p>
               </div>
             </div>
@@ -1220,7 +1220,7 @@ export default function ClientPage({ keywordData }) {
             </h3>
             <ul style={{ color: 'rgba(255,255,255,0.8)', lineHeight: '2', fontSize: '1.1rem', paddingLeft: '1.5rem', marginBottom: '2rem' }}>
               {propertyType.commonProblems.map((problem, i) => (
-                <li key={i}>⚠️ {problem}</li>
+                <li key={i}>� ️ {problem}</li>
               ))}
             </ul>
             
@@ -1607,7 +1607,7 @@ export default function ClientPage({ keywordData }) {
             </div>
             
             <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '12px', padding: '1.5rem', border: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>⚠️</div>
+              <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>� ️</div>
               <div style={{ fontSize: '2.5rem', fontWeight: '700', color: '#fbbf24', marginBottom: '0.5rem' }}>5,267</div>
               <div style={{ fontSize: '1rem', color: '#d1d5db' }}>Major Defects Found</div>
               <div style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem' }}>$14.2M repairs avoided</div>
