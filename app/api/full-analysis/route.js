@@ -14,7 +14,8 @@ import { runFullScamDetection } from '@/lib/data-sources/scam-detection'
 import { getFullPropertyVerification } from '@/lib/data-sources/property-verification'
 import { getFullLivabilityAnalysis } from '@/lib/data-sources/livability-intelligence'
 import { generateNegotiationTips, generatePersonalizedRisk, generateQuestionsToAsk, calculateDealScore, generateFinalVerdict } from '@/lib/data-sources/ai-analysis'
-import { LISTING_DATA_POINTS, extractDataPoints, findSimilarListings, createListingFingerprint, SAMPLE_LISTINGS, generateAISimilarListings } from '@/lib/data-sources/listing-recommendations'
+import { LISTING_DATA_POINTS, extractDataPoints, findSimilarListings, createListingFingerprint, SAMPLE_LISTINGS } from '@/lib/data-sources/listing-recommendations'
+import { findRealSimilarListings } from '@/lib/data-sources/ai-similar-listings'
 
 const GOOGLE_API_KEY = process.env.GOOGLE_PLACES_API_KEY
 
@@ -655,7 +656,7 @@ export async function POST(request) {
       // Generate 5 AI-powered similar listings based on the 30 data points
       if (listingFingerprint?.fingerprint) {
         // Use AI to generate realistic similar listings that match the user's criteria
-        similarListings = await generateAISimilarListings(
+        similarListings = await findRealSimilarListings(
           listingFingerprint.fingerprint,
           geocoded
         )
