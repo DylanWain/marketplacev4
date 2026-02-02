@@ -1,11 +1,21 @@
-# DibbyTour Robots.txt
-User-agent: *
+User-agent: Googlebot
+Crawl-delay: 10
 Allow: /
-
-# Sitemaps
-Sitemap: https://dibbytour.com/sitemap-index.xml
-
-# Disallow admin areas
 Disallow: /api/
-Disallow: /admin/
 Disallow: /_next/
+Disallow: /admin/
+Disallow: /tools/
+Disallow: /report/
+Disallow: /book/
+
+User-agent: *
+Crawl-delay: 10
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /tools/
+Disallow: /report/
+Disallow: /book/
+
+Sitemap: https://www.dibbytour.com/sitemap-20k-index.xml
